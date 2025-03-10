@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -8,29 +8,7 @@ const Dashboard = () => {
   const [updateLongUrl, setUpdateLongUrl] = useState('');
   const location = useLocation();
 
-useEffect(() => {
-  const params = new URLSearchParams(location.search);
-  const urlParam = params.get('url');
-  if (urlParam) {
-    setLongUrl(urlParam);
-    handleShorten(urlParam);
-  }
-  fetchUrls();
-}, [location, handleShorten]);
-
-  const fetchUrls = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/url/urls', {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      const data = await response.json();
-      setUrls(data);
-    } catch (error) {
-      console.error('Error fetching URLs:', error);
-    }
-  };
-
-  const handleShorten = async (url) => {
+  const handleShorten = useCallback(async (url) => {
     try {
       const response = await fetch('http://localhost:5000/url/shorten', {
         method: 'POST',
@@ -45,6 +23,28 @@ useEffect(() => {
       setLongUrl('');
     } catch (error) {
       console.error('Error shortening URL:', error);
+    }
+  }, [urls]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const urlParam = params.get('url');
+    if (urlParam) {
+      setLongUrl(urlParam);
+      handleShorten(urlParam);
+    }
+    fetchUrls();
+  }, [location, handleShorten]);
+
+  const fetchUrls = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/url/urls', {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      const data = await response.json();
+      setUrls(data);
+    } catch (error) {
+      console.error('Error fetching URLs:', error);
     }
   };
 
@@ -99,7 +99,7 @@ useEffect(() => {
             bitly
           </Link>
           <div className="flex items-center space-x-4">
-            <span className="text-gray-300">Welcome, User!</span>
+            <span class Name="text-gray-300">Welcome, User!</span>
             <button
               onClick={() => {
                 localStorage.removeItem('token');
@@ -207,7 +207,7 @@ useEffect(() => {
                         )}
                         <button
                           onClick={() => handleDelete(url._id)}
-                          className="text-red-500 hover:text-red-400 transition-colors"
+ className="text-red-500 hover:text-red-400 transition-colors"
                         >
                           Delete
                         </button>
