@@ -63,7 +63,6 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col">
-
       <div className="flex-grow flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-md p-8">
           <h1 className="text-3xl font-bold text-center text-orange-500 mb-6">Create your account</h1>
@@ -147,8 +146,6 @@ const Register = () => {
                 Log in
               </Link>
             </p>
-          </div>
-       
           </div>
         </div>
       </div>
