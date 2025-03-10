@@ -148,13 +148,7 @@ const Register = () => {
               </Link>
             </p>
           </div>
-          
-          <div className="mt-6 pt-6 border-t border-gray-700 text-center">
-            <p className="text-xs text-gray-400">
-              By creating an account, you agree to the{' '}
-              <a href="#" className="text-orange-500 hover:text-orange-600">Terms of Service</a> and{' '}
-              <a href="#" className="text-orange-500 hover:text-orange-600">Privacy Policy</a>
-            </p>
+       
           </div>
         </div>
       </div>

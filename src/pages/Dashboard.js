@@ -8,15 +8,15 @@ const Dashboard = () => {
   const [updateLongUrl, setUpdateLongUrl] = useState('');
   const location = useLocation();
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const urlParam = params.get('url');
-    if (urlParam) {
-      setLongUrl(urlParam);
-      handleShorten(urlParam);
-    }
-    fetchUrls();
-  }, [location]);
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const urlParam = params.get('url');
+  if (urlParam) {
+    setLongUrl(urlParam);
+    handleShorten(urlParam);
+  }
+  fetchUrls();
+}, [location, handleShorten]);
 
   const fetchUrls = async () => {
     try {
